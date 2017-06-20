@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {{post.render() | safe}}
+
+  <div class = "pack">
+        likes<span>({{post.like}})</span> .
+  	dislikes<span>({{post.dislike}})</span>
+  </div>
+
+  <!-- Container for comments -->  
+  <div>
+
+     <h3>Enter your views here :</h3>
+  	<form method="post" action="/blog/commentmainpage/{{post.key().id()}}">
+  	    <div class="error">{{error}}</div>
+  	    <textarea placeholder="Comment here!" name="comment">{{content}}</textarea>
+  	    <br>
+  	    <input type="submit">
+  	</form>
+  	<br>
+        
+        <!-- Comments entered by users -->
+        <div>
+  	    {% for co in comments %}
+  	        <div>
+  	            <div class = "date">
+  	                <div>
+  		 	    {{co.holder}} 
+  		 	</div>
+                        ({{co.created.strftime("%b %d, %Y")}})
+  		    </div>
+  		    <div>
+        	      comment:  {{co.comment | safe}}
+  		    </div>
+  		    <div>
+  		        <a class = "demo" href="/blog/editcomment/{{co.key().id()}}" title="edit comment">&#x270E;</a> |
+  		        <a class = "demo" href="/blog/deletecomment/{{co.key().id()}}" title="delete comment">&#x2718;</a>
+  		    </div>
+  		</div>
+  	    {% endfor %}
+  	</div> 
+
+  </div>
+{% endblock %}

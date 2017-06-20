@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  {% for post in posts %}
+    {{ post.render() | safe }}
+    <br><br> 
+
+    <hr>
+    
+    <div class = container>
+
+         <!-- like and dislike posts container -->
+         <div class="like_dislike">
+      
+              <form action="/blog/like/{{post.key().id()}}"> 
+        	    <input type="submit" value="like" title="like post">
+              </form> |
+  
+              <form action="/blog/dislike/{{post.key().id()}}"> 
+        	    <input type="submit" value="dislike" title="dislike post">
+              </form>
+  
+         </div>
+   
+         <hr>
+         <!-- comment container -->
+         <div class = "comment">
+              <form action = "/blog/postcomment/{{post.key().id()}}">
+                    <input type = "submit" value = "comment" title = "post comment">
+              </form>
+         </div>    
+
+         <hr>
+          <!-- edit and delete posts container -->
+         <div class="edit_delete">
+      
+              <form action="/blog/editpost/{{post.key().id()}}"> 
+        	    <input type="submit" value="edit" title="edit post">
+              </form>|
+  
+              <form action="/blog/deletepost/{{post.key().id()}}"> 
+        	    <input type="submit" value="delete" title="delete post">
+              </form> 
+  
+         </div>
+
+    </div>
+  {% endfor %}
+
+{% endblock %}
